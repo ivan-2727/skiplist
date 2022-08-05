@@ -22,7 +22,7 @@ class SetSkiplist(object):
         while True:
             ok = False
             for i in range(len(cur.levels)-1,-1,-1):
-                if cur.levels[i] and cur.levels[i].key < t:
+                if cur.levels[i] is not None and cur.levels[i].key < t:
                     rank += cur.ptrlen[i]
                     cur = cur.levels[i]
                     ok = True
@@ -32,7 +32,7 @@ class SetSkiplist(object):
     
     def rank(self, t):
         cur, rank = self.last_before(t)
-        if cur.levels[0] and cur.levels[0].key == t:
+        if cur.levels[0] is not None and cur.levels[0].key == t:
             return rank
         return -1
     
@@ -47,7 +47,7 @@ class SetSkiplist(object):
         while True:
             ok = False
             for i in range(len(cur.levels)-1,-1,-1):
-                if cur.levels[i] and rank + cur.ptrlen[i] < r+1:
+                if cur.levels[i] is not None and rank + cur.ptrlen[i] < r+1:
                     rank += cur.ptrlen[i]
                     cur = cur.levels[i]
                     ok = True
@@ -66,7 +66,7 @@ class SetSkiplist(object):
             path.append(cur)
             ok = False
             for i in range(len(cur.levels)-1,-1,-1):
-                if cur.levels[i] and cur.levels[i].key < t:
+                if cur.levels[i] is not None and cur.levels[i].key < t:
                     cur = cur.levels[i]
                     ok = True
                     break
@@ -116,4 +116,4 @@ mylist = SetSkiplist()
 x = [1,1,1,2,3,3]
 for t in x: mylist.add(t)
 for t in x: print(mylist.rank(t), end=' ')
-    
+print("")
