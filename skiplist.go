@@ -109,7 +109,7 @@ func (sl *Skiplist) Add(t int) {
  	}
 }
 
-func (sl Skiplist) Erase(t int) bool {
+func (sl *Skiplist) Erase(t int) bool {
 	path := sl.path_to(t)
 	cur := path[len(path)-1].levels[0]
 	if cur == nil {return false}
@@ -143,12 +143,12 @@ func (sl *Skiplist) Search(t int) bool {
     return sl.rank(t) != -1
 }
 
-func (sl Skiplist) how_many_smaller_than(t int) int {
+func (sl *Skiplist) how_many_smaller_than(t int) int {
 	_, rank := sl.last_before(t)
 	return rank
 }
 
-func (sl Skiplist) key_with_rank(r int) (int, error) {
+func (sl *Skiplist) key_with_rank(r int) (int, error) {
 	if r<0 {return 0, errors.New("Rank cannot be negative")}
 	cur := sl.head
 	rank := 0
